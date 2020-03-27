@@ -1,0 +1,37 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var url = "https://lat1-dilan.000webhostapp.com/CordovaApp/www/json.php";
+        $.getJSON(url, function(result) {
+            console.log(result);
+            $.each(result, function(i, field) {
+                var id = field.id;
+                var nama = field.nama;
+                var nim = field.nim;
+                var prodi = field.prodi;
+                var fakultas = field.fakultas;
+                var minat = field.minat;
+                var skill = field.skill;
+                $("#listview").append("<a class='item' href='form.html?id=" + id + "&nama=" + nama + "&nim=" + nim + "&prodi=" + prodi + "&fakultas=" + fakultas + "&minat=" + minat + "&skill=" + skill + "'>  <h2>" + nama + " </h2><h2>" + nim + "</h2><h2>" + prodi + "</h2><h2>" + fakultas + " </h2> <h2>" + minat + " </h2><h2>" + skill + "</h2></a>");
+            });
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <a href="index.html" class="button button-clear">Home</a>
+        <h1 class="title">View Database</h1>
+    </div>
+    <br/>
+    <br/>
+    <ul class="list" id="listview">
+    </ul>
+</body>
+
+</html>

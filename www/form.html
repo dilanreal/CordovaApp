@@ -1,0 +1,120 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/geturi.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var id = decodeURI(getUrlVars()["id"]);
+        var nama = decodeURI(getUrlVars()["nama"]);
+        var nim = decodeURI(getUrlVars()["nim"]);
+        var prodi = decodeURI(getUrlVars()["prodi"]);
+        var fakultas = decodeURI(getUrlVars()["fakultas"]);
+        var minat = decodeURI(getUrlVars()["minat"]);
+        var skill = decodeURI(getUrlVars()["skill"]);
+        $("#id").val(id);
+        $("#nama").val(nama);
+        $("#nim").val(nim);
+        $("#prodi").val(prodi);
+        $("#fakultas").val(fakultas);
+        $("#minat").val(minat);
+        $("#skill").val(skill);
+        $("#update").click(function() {
+            var id = $("#id").val();
+            var nama = $("#nama").val();
+            var nim = $("#nim").val();
+            var prodi = $("#prodi").val();
+            var fakultas = $("#fakultas").val();
+            var minat = $("#minat").val();
+            var skill = $("#skill").val();
+            var dataString = "id=" + id + "&nama=" + nama + "&nim=" + nim + "&prodi=" + prodi + "&fakultas=" + fakultas + "&minat=" + minat + "&skill=" + skill + "&update=";
+            $.ajax({
+                type: "POST",
+                url: "https://lat1-dilan.000webhostapp.com/CordovaApp/www/update.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#update").val('Loading');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Update Successfully");
+                        $("#update").val("Update");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+        $("#delete").click(function() {
+            var id = $("#id").val();
+            var dataString = "id=" + id + "&delete=";
+            $.ajax({
+                type: "GET",
+                url: "https://lat1-dilan.000webhostapp.com/CordovaApp/www/delete.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#delete").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Delete Successfully");
+                        $("#delete").val("Delete");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <a href="index.html" class="button button-clear">Home</a>
+        <h1 class="title">Update Database</h1>
+        <a class="button button-clear" href="readjson.html">View Data</a>
+    </div>
+    <br/>
+    <br/>
+    <div class="list">
+        <input type="hidden" id="id" value="" />
+        <div class="item">
+            <label>Nama Mahasiswa</label>
+            <input type="text" id="nama" value="" />
+        </div>
+        <div class="item">
+            <label>NIM</label>
+            <input type="text" id="nim" value="" />
+        </div>
+        <div class="item">
+            <label>Program Studi</label>
+            <input type="text" id="prodi" value="" />
+        </div>
+        <div class="item">
+            <label>Fakultas</label>
+            <input type="text" id="fakultas" value="" />
+        </div>
+        <div class="item">
+            <label>Minat Mahasiswa</label>
+            <input type="text" id="minat" value="" />
+        </div>
+        <div class="item">
+            <label>Skill Yang Sudah Dikuasi</label>
+            <input type="text" id="skill" value="" />
+        </div>
+        <div class="item">
+            <input type="button" id="update" class="button button-block" value="Update" />
+            <input type="button" id="delete" class="button button-block" value="Delete" />
+        </div>
+    </div>
+</body>
+
+</html>
